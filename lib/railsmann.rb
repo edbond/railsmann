@@ -1,5 +1,5 @@
 require 'active_support/notifications'
-require 'vitals/reporter'
+require 'railsmann/reporter'
 
 module Railsmann
   class Engine < Rails::Engine

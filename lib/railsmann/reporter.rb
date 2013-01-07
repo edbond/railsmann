@@ -1,4 +1,4 @@
-require 'riemann-client'
+require "riemann/client"
 
 module Railsmann
   class NullReporter
@@ -17,7 +17,7 @@ module Railsmann
     def report!(args)
       delta = args[2] - args[1]
       delta = (delta > 0) ? delta : 0
-      @client << { service: args[0], metric: delta }
+      @client << { service: args[0].to_s, metric: delta }
     end
   end
 end
