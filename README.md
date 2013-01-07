@@ -1,7 +1,7 @@
 # Railsmann
 
 Railsmann is a very simple rails 3 plugin which exposes [`ActiveSupport::Notification`](http://api.rubyonrails.org/classes/ActiveSupport/Notifications.html)s
-back to [`riemann`](https://riemann.io).  
+back to [`riemann`](http://riemann.io).  
 
 Railsmann is cribbed nearly verbatim from another great gem,
 [`Vitals`](http://github.com/jondot/vitals)
