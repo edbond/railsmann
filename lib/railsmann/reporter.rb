@@ -47,7 +47,7 @@ module Railsmann
                            metric: p[:view_runtime],
                           }
 
-               if options[:status] >= 400
+               if options[:status] && options[:status] >= 400
                  @client << {
                              service: "#{t}.error",
                              metric: p[:view_runtime],
