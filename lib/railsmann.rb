@@ -10,12 +10,14 @@ module Railsmann
     config.railsmann.port = 5555
 
     initializer "railsmann.configure" do |app|
-      Railsmann.configure(app.config.railsmann.host, app.config.railsmann.port) if app.config.railsmann.enabled
+      if app.config.railsmann.enabled
+        Railsmann.configure(app.config.railsmann.host, app.config.railsmann.port)
+      end
     end
 
     initializer "railsmann.subscribe" do |app|
       ActiveSupport::Notifications.subscribe( /[^!]$/ ) do |*args|
-        Railsmann.report! args 
+        Railsmann.report! args
       end
     end
   end
