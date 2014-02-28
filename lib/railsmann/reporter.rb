@@ -16,7 +16,7 @@ module Railsmann
     end
 
     def report!(args)
-      tag, t1, t2, uid, options = args
+      tag, t1, t2, _uid, options = args
       more = case tag
              when 'sql.active_record'
                { description: options[:sql] }
@@ -33,14 +33,14 @@ module Railsmann
                # :method=>"GET", :path=>"/users/watchlists",
                # :status=>200, :view_runtime=>3189.5200240000013,
                # :db_runtime=>9506.09494, :query_runtime=>0}
-               p = options[:params].symbolize_keys
-               t = [p[:controller].gsub('/', '.'), p[:action]].
-                 join('.')
+               p = (options[:params] || {}).symbolize_keys
+               t = [p[:controller].to_s.gsub('/', '.'), p[:action]]
+                 .join('.')
 
                # POST view and DB runtime
                @client << {
                  service: "#{t}.sql",
-                 metric: p[:db_runtime],
+                 metric: p[:db_runtime]
                           }
 
                @client << {
@@ -59,8 +59,8 @@ module Railsmann
                  service: t, }
              when 'start_processing.action_controller'
                p = options[:params].symbolize_keys
-               t = [p[:controller].to_s.gsub('/', '.'), p[:action]].
-                 join('.')
+               t = [p[:controller].to_s.gsub('/', '.'), p[:action]]
+                 .join('.')
                { description: "start #{options[:path]} #{options[:format]}",
                  service: t, }
              else
